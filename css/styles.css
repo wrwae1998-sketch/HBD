@@ -1,0 +1,103 @@
+/* CSS สำหรับตัว Slider */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /*height: 100vh;*/
+    background-color: #f4f4f4;
+    margin: 0;
+    flex-direction: column; /* จัดเรียงเป็นแนวตั้ง */
+    text-align: center;
+}
+
+.container {
+    width: 80%; /* กำหนดความกว้างของทั้ง container */
+    max-width: 600px; /* กำหนดความกว้างสูงสุด */
+}
+
+/* ทุกช่องภายใน container จะมีพื้นหลังสีขาว */
+.text-box, .slider-container, .music-player {
+    width: 100%; /* กำหนดความกว้างเท่ากัน */
+    margin-bottom: 20px;
+    background-color: white; /* กำหนดพื้นหลังเป็นสีขาว */
+    padding: 20px; /* เพิ่มระยะห่างภายในช่อง */
+    border-radius: 10px; /* มุมโค้งมน */
+    box-sizing: border-box; /* นับรวม padding และ border ในขนาด */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ดูสวยงาม */
+}
+
+/* ช่องข้อความ */
+.text-box {
+    color: #333; /* สีข้อความเป็นสีเข้ม */
+}
+
+/* ช่องแสดงรูปภาพ */
+.slider-container {
+    position: relative;
+    overflow: hidden;  /* ซ่อนส่วนที่เกินจากขอบเขต */
+    /*height: 400px;  /* กำหนดความสูงของ container ให้เหมาะสม */*/
+}
+
+.slider-images {
+    display: flex;  /* ใช้ flexbox เพื่อให้ภาพเรียงกันในแนวนอน */
+    transition: transform 1s ease-in-out;  /* เพิ่ม transition เพื่อทำให้การเลื่อนภาพนุ่มนวล */
+}
+
+.slider-images img {
+    width: 100%;  /* ทำให้ภาพเต็มความกว้างของ container */
+    height: 100%; /* ให้ภาพมีความสูงเต็ม container */
+    object-fit: cover; /* ปรับให้ภาพไม่เสียสัดส่วนและเต็มพื้นที่ */
+    flex-shrink: 0;  /* ไม่ให้ภาพย่อหรือลดขนาด */
+    opacity: 0; /* ซ่อนภาพที่ไม่ใช่ภาพที่แสดง */
+    transition: opacity 1s ease-in-out; /* ใช้ transition เพื่อทำให้การเปลี่ยนแปลงค่อยๆ จาง */
+}
+
+.slider-images img.active {
+    opacity: 1;  /* แสดงภาพที่มีคลาส active */
+}
+
+/* ช่องเล่นเพลง */
+.music-player audio {
+    width: 100%; /* ทำให้ความกว้างของ audio ปรับตาม container */
+    max-width: 100%; /* จำกัดความกว้างไม่ให้เกิน 100% */
+    box-sizing: border-box; /* ใช้เพื่อให้ padding และ border ไม่เพิ่มขนาดเกินไป */
+}
+
+.music-player h3 {
+    margin-bottom: 10px;
+}
+
+/* ปุ่มซ้าย-ขวา */
+.button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.left-btn {
+    left: 10px;
+}
+
+.right-btn {
+    right: 10px;
+}
+
+/* แสดง index ของภาพ */
+#current-index {
+    font-size: 18px;
+    margin-top: 20px;
+}
