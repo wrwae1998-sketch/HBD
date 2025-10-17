@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Fade Slider with Text Box & Music Player</title>
+    <link rel="stylesheet" href="css\styles.css">
+    <style>
+        body {
+            margin: 0;
+            /*height: 100vh;*/
+            background: linear-gradient(to right, pink, lightblue);
+            /*background-size: 200% 200%;*/
+            animation: gradientAnimation 5s ease infinite;
+            font-family: 'SanamDeklen_chaya', sans-serif; /* ใช้ฟอนต์ที่เราโหลดมา */
+        }
+        
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        @font-face {
+            font-family: 'SanamDeklen_chaya'; /* ตั้งชื่อฟอนต์ที่เราต้องการใช้ */
+            src: url('fonts/SanamDeklen_chaya.ttf') format('truetype'); /* ระบุที่ตั้งไฟล์ฟอนต์ */
+            font-weight: normal;
+            font-style: normal;
+        }
+    </style>
+    <script>
+    let currentIndex = 0;  // เก็บ index ของภาพที่กำลังแสดง
+
+    // ฟังก์ชันที่ใช้ในการเลื่อนภาพไปข้างหน้าและข้างหลัง
+    function moveSlide(direction) {
+        const images = document.querySelectorAll('.slider-images img');
+        const totalImages = images.length;
+
+        // ลบคลาส active ออกจากภาพทุกภาพ
+        images.forEach(img => img.classList.remove('active'));
+
+        // เลื่อน index ตามทิศทางที่กด
+        currentIndex += direction;
+
+        // ตรวจสอบ index ถ้าผ่านขอบเขต
+        if (currentIndex < 0) {
+            currentIndex = totalImages - 1; // ไปที่รูปสุดท้าย
+        } else if (currentIndex >= totalImages) {
+            currentIndex = 0; // ไปที่รูปแรก
+        }
+
+        // เพิ่มคลาส active ให้กับภาพที่เลือก
+        images[currentIndex].classList.add('active');
+
+        // เปลี่ยนตำแหน่งการแสดงของภาพใน slider โดยใช้ transform
+        const slider = document.querySelector('.slider-images');
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;  // เคลื่อนภาพไปทางซ้ายตาม index
+
+        // แสดง index ที่กำลังแสดง
+        document.getElementById('index-display').innerText = currentIndex;
+    }
+
+    // เมื่อเพจโหลดเสร็จ จะทำการเล่นเพลงจากจุดเริ่มต้นที่ 16.5 วินาที
+    function play() {
+        const audioPlayer = document.getElementById('audio-player');
+
+        // ตั้งเวลาที่เพลงจะเริ่มเล่น
+        audioPlayer.currentTime = 22.5;
+        // audioPlayer.currentTime = hookStartTime;
+
+        // เริ่มเล่นเพลง
+        audioPlayer.play();
+    };
+
+</script>
+</head>
+<body onload="play()">
+<div class="container">
+    <!-- ช่องเล่นเพลง -->
+    <div class="music-player">
+        <img src="pic\logo.png" style="width:80%">
+        <h3>กำลังเล่น:เพลงของคุณ</h3>
+        <audio id="audio-player" controls autoplay>
+            <source src="song\song.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+    <!-- ช่องแสดงภาพ -->
+    <div class="slider-container">
+        <img src="pic\logom.png" style="width:50%">
+        <div class="slider-images">
+            <img src="pic\1.jpg" alt="Image 1" class="slide active">
+            <img src="pic\2.jpg" alt="Image 2" class="slide">
+            <img src="pic\3.jpg" alt="Image 3" class="slide">
+            <img src="pic\4.jpg" alt="Image 4" class="slide">
+            <img src="pic\5.jpg" alt="Image 5" class="slide">
+            <img src="pic\6.jpg" alt="Image 6" class="slide">
+            <img src="pic\7.jpg" alt="Image 7" class="slide">
+            <img src="pic\8.jpg" alt="Image 8" class="slide">
+            <img src="pic\9.jpg" alt="Image 9" class="slide">
+            <img src="pic\10.jpg" alt="Image 10" class="slide">
+        </div>
+        <button class="button left-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <button class="button right-btn" onclick="moveSlide(1)">&#10095;</button>
+        </div>
+    <!-- ช่องแสดงข้อความ -->
+    <div class="text-box">
+        <p>🎂🎀 "สุขสันวันเกิดนะคะ ป๊ะป๊า ปีนี้อายุ 28 ปี แล้ว ขอให้วันเกิดปีนี้เป็นปีที่มีความสุข และขอให้ปีต่อๆไปก็ยังมีความสุขแบบนี้ไปตลอดนะ ขอให้สมหวังในทุกเรื่องที่หวัง ขอให้ป๊ะป๊ามีสุขภาพดี เดินก้าวไปสู่ความฝันที่ตั้งใจไว้ ทุกสิ่งที่ป๊ะป๊าตั้งใจจะประสบความสำเร็จเสมอไป ไม่ต้องห่วงจะคอยอยู่ข้างหลังเสมอไม่ไปใหน รักป๊ะป๊านะ รักมากๆ" ❤️ 🎀 🎂
+        </p>
+        <p>Oraphan❤️</p>
+    </div>
+</div>
+</body>
+</html>
